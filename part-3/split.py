@@ -4,6 +4,8 @@
 
 import csv
 
+# Since the original patient.csv has 600K rows, 5 small csv will be created for 100k row per file
+
 number_of_lines = 100000
 
 def split_file(part, lines):
