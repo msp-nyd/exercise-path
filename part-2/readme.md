@@ -7,9 +7,11 @@ Write SQL scripts to:
 
 #### 1. Find the top 10 employees in each department
 
+Please refer attached file dump.sql to create the database schemas
+
+
+##### Solution Query
 ```
--- Solution Query
--- Please refer attached file dump.sql to create the database with tables
 -- join the respective tables in a cte, resulting in yearly sales total by employee and department
 
 with cteByYearlySales as(
@@ -35,16 +37,27 @@ Select *
 from cteByDepartmentEmployeeSales
 )
 
--- select the rows where ranking <=2, where 2 can be replaced with 10 as per the question requirement
+-- Choose rows where ranking <=2, where 2 can be replaced with 10 as per the question requirement
 
 Select * From cteByDepartmentEmployeeSalesRank where ranking<=2;
-;
 ```
 
+##### Query Result: Picking top 2(10) sales made by the employees within each department:
+```
+ emp_id | emp_fname | dept_id |      dept_name       | total_sales | ranking 
+--------+-----------+---------+----------------------+-------------+---------
+      1 | Michale   |       1 | queens               |    71223.00 |       1
+      7 | Kuleswar  |       1 | queens               |    66505.00 |       2
+     11 | Mario     |       2 | manhattan-east       |   101074.00 |       1
+      2 | Carlos    |       2 | manhattan-east       |    73350.00 |       2
+      5 | Joseph    |       3 | manhattan-west       |    87369.00 |       1
+      6 | Zanifer   |       3 | manhattan-west       |    75865.00 |       2
+     10 | George    |       4 | manhattan-upper-east |    57778.00 |       1
+     12 | Alan      |       4 | manhattan-upper-east |    48753.00 |       2
+(8 rows)
+```
 
-
-##### Aggregated total sales with ranking:
-
+##### Helper intermediate queries, Aggregated total sales with ranking:
 ```
  emp_id | emp_fname | dept_id |      dept_name       | total_sales | ranking 
 --------+-----------+---------+----------------------+-------------+---------
@@ -65,26 +78,12 @@ Select * From cteByDepartmentEmployeeSalesRank where ranking<=2;
 (14 rows)
 ```
 
-##### Picking top 2(10) sales made by the employees within each department:
-```
- emp_id | emp_fname | dept_id |      dept_name       | total_sales | ranking 
---------+-----------+---------+----------------------+-------------+---------
-      1 | Michale   |       1 | queens               |    71223.00 |       1
-      7 | Kuleswar  |       1 | queens               |    66505.00 |       2
-     11 | Mario     |       2 | manhattan-east       |   101074.00 |       1
-      2 | Carlos    |       2 | manhattan-east       |    73350.00 |       2
-      5 | Joseph    |       3 | manhattan-west       |    87369.00 |       1
-      6 | Zanifer   |       3 | manhattan-west       |    75865.00 |       2
-     10 | George    |       4 | manhattan-upper-east |    57778.00 |       1
-     12 | Alan      |       4 | manhattan-upper-east |    48753.00 |       2
-(8 rows)
-```
+
 
 #### 2. For each department, calculate year over year growth
 
+##### Solution Query
 ```
--- Solution Query
-
 with cteByYearlySales as(
 select e.dept_id, d.dept_name, sum(s.sales_amount) as yearly_sales, extract(year from s.sales_date) as year from employee e 
 join department d on e.dept_id = d.dept_id 
@@ -98,9 +97,8 @@ from cteByYearlySales group by dept_id, year;
 
 ```
 
+##### Query Result
 ```
--- Solution Result
-
  dept_id | year | yearly_sales_total |  yoy   
 ---------+------+--------------------+--------
        1 | 2018 |           60924.00 |   0.00
