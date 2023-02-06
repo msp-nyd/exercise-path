@@ -3,13 +3,12 @@
 ### Given a database of employees who are accountable for sales 
 (with table structure;employee, department, sales, year), 
 
-#### Please refer attached file dump.sql to create the database with tables
-
 Write SQL scripts to:
 
 1. Find the top 10 employees in each department
 
 ```
+-- Please refer attached file dump.sql to create the database with tables
 -- join the respective tables in a cte, resulting in yearly sales total by employee and department
 
 with cteByYearlySales as(
@@ -65,7 +64,7 @@ Select * From cteByDepartmentEmployeeSalesRank where ranking<=2;
 (14 rows)
 ```
 
-#### Picking top 2(10) employees by department:
+#### Picking top 2(10) sales made by the employees within each department:
 ```
  emp_id | emp_fname | dept_id |      dept_name       | total_sales | ranking 
 --------+-----------+---------+----------------------+-------------+---------
