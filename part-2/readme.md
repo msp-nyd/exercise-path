@@ -5,7 +5,7 @@
 
 Write SQL scripts to:
 
-1. Find the top 10 employees in each department
+#### 1. Find the top 10 employees in each department
 
 ```
 -- Please refer attached file dump.sql to create the database with tables
@@ -34,7 +34,7 @@ Select *
 from cteByDepartmentEmployeeSales
 )
 
--- select the rows where ranking <=2, where 2 can be replaced with 10 as per the question requirement. 
+-- select the rows where ranking <=2, where 2 can be replaced with 10 as per the question requirement
 
 Select * From cteByDepartmentEmployeeSalesRank where ranking<=2;
 ;
@@ -42,7 +42,7 @@ Select * From cteByDepartmentEmployeeSalesRank where ranking<=2;
 
 
 
-#### Aggregated total sales with ranking:
+##### Aggregated total sales with ranking:
 
 ```
  emp_id | emp_fname | dept_id |      dept_name       | total_sales | ranking 
@@ -64,7 +64,7 @@ Select * From cteByDepartmentEmployeeSalesRank where ranking<=2;
 (14 rows)
 ```
 
-#### Picking top 2(10) sales made by the employees within each department:
+##### Picking top 2(10) sales made by the employees within each department:
 ```
  emp_id | emp_fname | dept_id |      dept_name       | total_sales | ranking 
 --------+-----------+---------+----------------------+-------------+---------
@@ -79,6 +79,6 @@ Select * From cteByDepartmentEmployeeSalesRank where ranking<=2;
 (8 rows)
 ```
 
-2. For each department, calculate year over year growth
+#### 2. For each department, calculate year over year growth
 
 
