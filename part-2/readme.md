@@ -8,6 +8,7 @@ Write SQL scripts to:
 #### 1. Find the top 10 employees in each department
 
 ```
+-- Solution Query
 -- Please refer attached file dump.sql to create the database with tables
 -- join the respective tables in a cte, resulting in yearly sales total by employee and department
 
@@ -81,4 +82,51 @@ Select * From cteByDepartmentEmployeeSalesRank where ranking<=2;
 
 #### 2. For each department, calculate year over year growth
 
+```
+-- Solution Query
 
+with cteByYearlySales as(
+select e.dept_id, d.dept_name, sum(s.sales_amount) as yearly_sales, extract(year from s.sales_date) as year from employee e 
+join department d on e.dept_id = d.dept_id 
+left join sales s on e.emp_id = s.emp_id
+group by  e.dept_id, d.dept_name,extract(year from s.sales_date)
+order by e.dept_id, year
+)
+select dept_id, year,sum(yearly_sales) yearly_sales_total,
+COALESCE (round(((sum(yearly_sales)/lag(sum(yearly_sales)) over (partition by dept_id order by dept_id, year))-1 ) * 100,2),0.00) as YOY 
+from cteByYearlySales group by dept_id, year;
+
+```
+
+```
+-- Solution Result
+
+ dept_id | year | yearly_sales_total |  yoy   
+---------+------+--------------------+--------
+       1 | 2018 |           60924.00 |   0.00
+       1 | 2019 |           39010.00 | -35.97
+       1 | 2020 |           39001.00 |  -0.02
+       1 | 2021 |           37723.00 |  -3.28
+       1 | 2022 |          103427.00 | 174.17
+       2 | 2018 |           47779.00 |   0.00
+       2 | 2019 |           53558.00 |  12.10
+       2 | 2020 |           33554.00 | -37.35
+       2 | 2021 |           48995.00 |  46.02
+       2 | 2022 |           42880.00 | -12.48
+       3 | 2018 |           52035.00 |   0.00
+       3 | 2019 |           49663.00 |  -4.56
+       3 | 2020 |           61162.00 |  23.15
+       3 | 2021 |           11968.00 | -80.43
+       3 | 2022 |           47153.00 | 293.99
+       4 | 2018 |           12871.00 |   0.00
+       4 | 2019 |           13326.00 |   3.54
+       4 | 2020 |           22916.00 |  71.96
+       4 | 2021 |           48106.00 | 109.92
+       4 | 2022 |           29635.00 | -38.40
+(20 rows)
+```
+
+
+
+       
+     
