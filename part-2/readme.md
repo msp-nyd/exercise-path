@@ -35,15 +35,17 @@ Select *
 from cteByDepartmentEmployeeSales
 )
 
--- just select the rows where ranking <=2, where 2 can be replaced with 10 as per the question requirement. 
+-- select the rows where ranking <=2, where 2 can be replaced with 10 as per the question requirement. 
 
 Select * From cteByDepartmentEmployeeSalesRank where ranking<=2;
 ;
 ```
 
 
--- Aggregated total sales with ranking:
 
+#### Aggregated total sales with ranking:
+
+```
  emp_id | emp_fname | dept_id |      dept_name       | total_sales | ranking 
 --------+-----------+---------+----------------------+-------------+---------
       1 | Michale   |       1 | queens               |    71223.00 |       1
@@ -61,10 +63,10 @@ Select * From cteByDepartmentEmployeeSalesRank where ranking<=2;
      12 | Alan      |       4 | manhattan-upper-east |    48753.00 |       2
      14 | Nickole   |       4 | manhattan-upper-east |    20323.00 |       3
 (14 rows)
+```
 
-
--- Picking top 2(10) employees by department:
-
+#### Picking top 2(10) employees by department:
+```
  emp_id | emp_fname | dept_id |      dept_name       | total_sales | ranking 
 --------+-----------+---------+----------------------+-------------+---------
       1 | Michale   |       1 | queens               |    71223.00 |       1
@@ -76,7 +78,7 @@ Select * From cteByDepartmentEmployeeSalesRank where ranking<=2;
      10 | George    |       4 | manhattan-upper-east |    57778.00 |       1
      12 | Alan      |       4 | manhattan-upper-east |    48753.00 |       2
 (8 rows)
-
+```
 
 2. For each department, calculate year over year growth
 
